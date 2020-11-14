@@ -108,7 +108,7 @@ public class ClientHandler {
      * Receives input data from {@link ClientHandler#in} and then broadcast via {@link Server#broadcastMessage(String)}
      */
 
-   //
+
     private void receiveMessage() throws SocketTimeoutException {
         try {
             while (true) {
