@@ -1,7 +1,4 @@
-package  fi.lahti.unit_7.auth;
-
-
-import fi.lahti.unit_7.entity.User;
+package fi.lahti.unit_7;
 
 import java.util.Optional;
 

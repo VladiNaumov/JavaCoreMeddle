@@ -1,4 +1,4 @@
-package  fi.lahti.unit_7.entity;
+package fi.lahti.unit_7;
 
 public class User {
     private String nickname;
