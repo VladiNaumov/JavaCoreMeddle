@@ -30,6 +30,13 @@ public class Main {
         list.add("GAZ");
         list.add("TOYOTA");
 
+        SingleLinkedList my = new SingleLinkedList();
+        my.add("LEXUS");
+        my.add("KAMAZ");
+        my.add("MAZ");
+
+
+        /*
         GBIterator iterator = list.iterator();
         while (iterator.hasNext()) {
             String next = iterator.next();
@@ -41,6 +48,9 @@ public class Main {
         System.out.println("Is toyota removed? " + isToyotaRemoved);
         System.out.println("Size after remove " + list.size());
 
+         */
+
         System.out.println(list);
+        System.out.println(my);
     }
 }

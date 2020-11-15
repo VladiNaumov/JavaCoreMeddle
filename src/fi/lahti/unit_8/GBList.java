@@ -6,11 +6,11 @@ public interface GBList extends GBIterable {
     void add(String val);
 
     //удаление значения из коллеции (говорит удалён ли элемент из коллеции или нет т.е. true или false
-    boolean remove(String val);
+  boolean remove(String val);
 
     //возвращает размер коллекции т.е сколько елементов в коллекции сейчас есть
-    int size();
+  int size();
 
     //
-    int get(int index);
+   int get(int index);
 }
