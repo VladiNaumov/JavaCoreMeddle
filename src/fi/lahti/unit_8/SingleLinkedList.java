@@ -1,11 +1,21 @@
 package fi.lahti.unit_8;
 
-import fi.lahti.unit_8.GBIterator;
-import fi.lahti.unit_8.GBList;
 
+// главная Node с каторой мы начинаем работать
 public class SingleLinkedList implements GBList {
-    private Node first;
+    private Node first; // Node -> узел
     private int size = 0;
+
+
+    private void add(Node current, String val) {
+        if (current.next == null) {
+            current.next = new Node(val);
+            return;
+        }
+        add(current.next, val);
+    }
+
+
 
     @Override
     public void add(String val) {
@@ -17,13 +27,6 @@ public class SingleLinkedList implements GBList {
         size++;
     }
 
-    private void add(Node current, String val) {
-        if (current.next == null) {
-            current.next = new Node(val);
-            return;
-        }
-        add(current.next, val);
-    }
 
     @Override
     public boolean remove(String val) {
@@ -59,10 +62,22 @@ public class SingleLinkedList implements GBList {
         return size;
     }
 
+
+
+    @Override
+    public int get(int index) {
+        return 0;
+    }
+
+
+
+
     @Override
     public GBIterator iterator() {
         return new StraightForwardIterator(first);
     }
+
+
 
     @Override
     public String toString() {
@@ -71,9 +86,12 @@ public class SingleLinkedList implements GBList {
                 '}';
     }
 
+    //
+
+    // class Node  -> узел
     private static class Node {
-        private String val;
-        private Node next;
+        private String val; // значение
+        private Node next; // ссылка на следующий элемент
 
         public Node(String val) {
             this(val, null);
@@ -97,18 +115,27 @@ public class SingleLinkedList implements GBList {
         }
     }
 
+
+    //итерация (Iterator) - это проход одного элемента
+    //class StraightForwardIterator - ?
     public static class StraightForwardIterator implements GBIterator {
+
         private Node current;
 
         public StraightForwardIterator(Node current) {
             this.current = current;
         }
 
+
+        //проверка следующего элемента на наличие в коллекции
+        //например в нашей коллекции три элемента то итератор говорит есть ли в коллекции следующий элемен
+
         @Override
         public boolean hasNext() {
             return current != null;
         }
 
+        //возвращает текущий элемент из коллекции
         @Override
         public String next() {
             String val = current.val;
@@ -116,4 +143,5 @@ public class SingleLinkedList implements GBList {
             return val;
         }
     }
+
 }
