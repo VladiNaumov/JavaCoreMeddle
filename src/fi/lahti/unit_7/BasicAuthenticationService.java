@@ -1,5 +1,6 @@
 package fi.lahti.unit_7;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -11,9 +12,9 @@ public class BasicAuthenticationService implements AuthenticationService {
 
     static {
         users = List.of(
-                new User("Vladimir", "n1@mail.com", "1"),
-                new User("Teemu", "n2@mail.com", "2"),
-                new User("Alena", "n3@mail.com", "3")
+                new User("n1", "n1@mail.com", "1"),
+                new User("n2", "n2@mail.com", "2"),
+                new User("n3", "n3@mail.com", "3")
         );
     }
 

@@ -1,13 +1,11 @@
 package fi.lahti.unit_7;
 
-
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ClientHandler {
     private Server server;
@@ -15,7 +13,6 @@ public class ClientHandler {
     private DataInputStream in;
     private DataOutputStream out;
     private String name;
-    private boolean authCheck = false;
 
     public ClientHandler(Server server, Socket socket) {
         try {
@@ -34,29 +31,24 @@ public class ClientHandler {
         return name;
     }
 
-    // запуск потока для работы с методом doAuth(); он работает для идентификации пользователя
-    private synchronized void doListen() {
+    private void doListen() {
         new Thread(() -> {
             try {
                 doAuth();
                 receiveMessage();
-            } catch (SocketTimeoutException e) {
-                sendMessage("Auth out of time");
             } catch (Exception e) {
                 throw new RuntimeException("SWW", e);
             } finally {
-                sendMessage("Client " + this.name + " is logged out");
                 server.unsubscribe(this);
             }
         }).start();
     }
 
-    //обработка сообщения "-auth" о начале аудентификации
-    private void doAuth() throws SocketTimeoutException {
+    private void doAuth() {
         try {
-            socket.setSoTimeout(120000);
             while (true) {
                 String credentials = in.readUTF();
+                AtomicBoolean isAuth = new AtomicBoolean(false);
                 /**
                  * Input credentials sample
                  * "-auth n1@mail.com 1"
@@ -67,7 +59,6 @@ public class ClientHandler {
                      * array of ["-auth", "n1@mail.com", "1"]
                      */
                     String[] credentialValues = credentials.split("\\s");
-
                     server.getAuthenticationService()
                             .doAuth(credentialValues[1], credentialValues[2])
                             .ifPresentOrElse(
@@ -77,7 +68,7 @@ public class ClientHandler {
                                             name = user.getNickname();
                                             server.broadcastMessage(name + " is logged in.");
                                             server.subscribe(this);
-                                            authCheck = true;
+                                            isAuth.set(true);
                                         } else {
                                             sendMessage("Current user is already logged in.");
                                         }
@@ -89,16 +80,11 @@ public class ClientHandler {
                                         }
                                     }
                             );
-                    if (authCheck) {
-                        socket.setSoTimeout(0);
-                        return;
-                    }
                 }
-                sendMessage("Authorize before using chat");
+                if (isAuth.get()) {
+                    break;
+                }
             }
-
-        } catch (SocketTimeoutException e) {
-            throw e;
         } catch (IOException e) {
             throw new RuntimeException("SWW", e);
         }
@@ -107,34 +93,20 @@ public class ClientHandler {
     /**
      * Receives input data from {@link ClientHandler#in} and then broadcast via {@link Server#broadcastMessage(String)}
      */
-
-
-    private void receiveMessage() throws SocketTimeoutException {
+    private void receiveMessage() {
         try {
             while (true) {
                 String message = in.readUTF();
-                /**
-                 * Input privateMessage sample
-                 * "-w n1 hello"
-                 */
-                if (message.startsWith("-w")) {
-                    String[] privateMessage = message.split("\\s");
-                    server.sendPrivateMessage(this.name, privateMessage[1], privateMessage[2]);
-                } else if (message.equals("-exit")) {
+                if (message.equals("-exit")) {
                     return;
-                } else {
-                    message = (name + ": " + message);
-                    server.broadcastMessage(message);
                 }
+                server.broadcastMessage(message);
             }
-        } catch (SocketTimeoutException e) {
-            throw e;
         } catch (IOException e) {
             throw new RuntimeException("SWW", e);
         }
     }
 
-    // выводит служебную информацию на консоль
     public void sendMessage(String message) {
         try {
             out.writeUTF(message);
@@ -159,5 +131,4 @@ public class ClientHandler {
     public int hashCode() {
         return Objects.hash(server, socket, in, out, name);
     }
-
 }
