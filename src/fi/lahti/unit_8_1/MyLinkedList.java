@@ -4,11 +4,16 @@ package fi.lahti.unit_8_1;
 public class MyLinkedList implements InterfaveLinkedList {
     private Node first;
 
+
+    //рекурсионный метод (вместо цикла while)
     private void add(Node current, String val) {
+           // проверка на null
         if (current.next == null) {
+            //  Создаём объект = new Node(val);
             current.next = new Node(val);
             return;
         }
+        // вызывает сам себя (рекурсия)
         add(current.next, val);
     }
 
