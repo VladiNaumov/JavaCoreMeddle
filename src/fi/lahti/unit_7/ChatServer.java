@@ -44,6 +44,14 @@ public class ChatServer implements Server {
                 .isPresent();
     }
 
+    public synchronized void sendPrivateMessage(String from, String name, String privateMessage) {
+        for (ClientHandler client : clients) {
+            if (client.getName().equals(name)) {
+                client.sendMessage(from + ": (private) " + privateMessage);
+            }
+        }
+    }
+
     @Override
     public synchronized void subscribe(ClientHandler client) {
         clients.add(client);
