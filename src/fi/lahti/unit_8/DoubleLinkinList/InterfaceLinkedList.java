@@ -1,6 +1,6 @@
-package fi.lahti.unit_8_1;
+package fi.lahti.unit_8.DoubleLinkinList;
 
-public interface InterfaveLinkedList {
+public interface InterfaceLinkedList {
     //добовление значения в коллекцию
     void add(String val);
 }

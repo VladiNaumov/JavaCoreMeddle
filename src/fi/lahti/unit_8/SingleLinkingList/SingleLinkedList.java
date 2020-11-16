@@ -1,10 +1,11 @@
-package fi.lahti.unit_8;
+package fi.lahti.unit_8.SingleLinkingList;
 
 
 // главная Node с каторой мы начинаем работать
 public class SingleLinkedList implements GBList {
     private Node first; // Node -> узел
-   // private int size = 0; // второй способ подсчёта элементов в LinkedList
+    private int size = 0; // второй способ подсчёта элементов в LinkedList
+    private int w;
 
 
     private void add(Node current, String val) {
@@ -24,7 +25,7 @@ public class SingleLinkedList implements GBList {
         } else {
             add(first, val);
         }
- //       size++; //относится ко второму способу подсчёта элементов в LinkedList
+        size++; //относится ко второму способу подсчёта элементов в LinkedList
     }
 
 
@@ -35,7 +36,7 @@ public class SingleLinkedList implements GBList {
     public boolean remove(String val) {
         if (first.val.equals(val)) {
             first = first.next;
-  //          size--; //относится ко второму способу подсчёта элементов в LinkedList
+            size--; //относится ко второму способу подсчёта элементов в LinkedList
             return true;
         }
 
@@ -44,7 +45,7 @@ public class SingleLinkedList implements GBList {
         while(current != null) {
             if (current.val.equals(val)) {
                 prev.setNext(current.next);
-   //             size--; //относится ко второму способу подсчёта элементов в LinkedList
+                size--; //относится ко второму способу подсчёта элементов в LinkedList
                 return true;
             }
             prev = current;
@@ -57,20 +58,24 @@ public class SingleLinkedList implements GBList {
     //возвращает размер коллекции т.е подсчитывает елементов в коллекции сейчас есть
     @Override
     public int size() {
-        int i = 0;
-        GBIterator iterator = iterator();
-        while (iterator.hasNext()) {
-            i++;
-        }
-        return i;
- //       return size; //относится ко второму способу подсчёта элементов в LinkedList
+        return size; //относится ко второму способу подсчёта элементов в LinkedList
     }
 
 
 
     @Override
-    public int get(int index) {
-        return 0;
+    public int getString(int s) {
+        GBIterator iterator = iterator();
+        while (iterator.hasNext()) {
+            String next = iterator.next();
+            w++;
+            if(w == s) {
+                System.out.println("ЗАПРОШЕННЫЙ ЭЛЕМЕНТ: " + next);
+                break;
+            }
+        }
+        return w;
+
     }
 
 
@@ -78,8 +83,8 @@ public class SingleLinkedList implements GBList {
 
     @Override
     public GBIterator iterator() {
-      //  return new StraightForwardIterator(first);
-        return null;
+        return new StraightForwardIterator(first);
+
     }
 
 
@@ -123,7 +128,7 @@ public class SingleLinkedList implements GBList {
     }
 
 
-    /*
+
     //итерация (Iterator) - это проход одного элемента
     //class StraightForwardIterator - реалезован для работы итератора
 
@@ -153,6 +158,6 @@ public class SingleLinkedList implements GBList {
         }
     }
 
-     */
+
 
 }

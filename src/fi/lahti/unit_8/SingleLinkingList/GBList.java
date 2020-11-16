@@ -1,4 +1,4 @@
-package fi.lahti.unit_8;
+package fi.lahti.unit_8.SingleLinkingList;
 
 public interface GBList extends GBIterable {
 
@@ -12,5 +12,5 @@ public interface GBList extends GBIterable {
   int size();
 
     //
-   int get(int index);
+   int getString(int val);
 }
