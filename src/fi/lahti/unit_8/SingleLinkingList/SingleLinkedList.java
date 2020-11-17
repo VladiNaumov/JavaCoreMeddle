@@ -7,15 +7,14 @@ public class SingleLinkedList implements GBList {
     private int size = 0; // второй способ подсчёта элементов в LinkedList
     private int w;
 
-
     private void add(Node current, String val) {
+
         if (current.next == null) {
             current.next = new Node(val);
             return;
         }
         add(current.next, val);
     }
-
 
     //добовление значения в коллекцию
     @Override
@@ -27,9 +26,6 @@ public class SingleLinkedList implements GBList {
         }
         size++; //относится ко второму способу подсчёта элементов в LinkedList
     }
-
-
-
 
     //удаление значения из коллеции (говорит удалён ли элемент из коллеции или нет т.е. true или false
     @Override
@@ -78,17 +74,11 @@ public class SingleLinkedList implements GBList {
 
     }
 
-
-
-
     @Override
     public GBIterator iterator() {
         return new StraightForwardIterator(first);
 
     }
-
-
-
 
 
     @Override
@@ -98,21 +88,23 @@ public class SingleLinkedList implements GBList {
                 '}';
     }
 
-
-
     // class Node  -> узел  он без LinkinList существовать не может. Она обслуживает LinkinList
     private static class Node {
         private String val; // значение
         private Node next; // ссылка на следующий элемент
 
+
+        //конструктор для передачи значения
         public Node(String val) {
-            this(val, null);
+            this(val, null); //next
         }
 
+        //конструктор для передачи значения и узла
         public Node(String val, Node next) {
             this.val = val;
             this.next = next;
         }
+
 
         public void setNext(Node next) {
             this.next = next;

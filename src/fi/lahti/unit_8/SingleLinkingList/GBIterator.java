@@ -8,5 +8,5 @@ public interface GBIterator {
     boolean hasNext();
 
     //возвращает текущий элемент из коллекции
-    String next();
+      String next();
 }

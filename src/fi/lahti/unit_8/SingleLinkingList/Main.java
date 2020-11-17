@@ -1,4 +1,4 @@
-package fi.lahti.unit_8;
+package fi.lahti.unit_8.SingleLinkingList;
 
 /*
 Разобраться с кодом. Односвязные список - это такое список, который хранит специальном внутреннем контейнере (узел) значение и ссылку на следующий элемент. Важно отметить, что у последнего элемента ссылка будет пустая, поскольку ссылаться ему попросту некуда.
@@ -24,7 +24,7 @@ package fi.lahti.unit_8;
 import fi.lahti.unit_8.SingleLinkingList.GBList;
 import fi.lahti.unit_8.SingleLinkingList.SingleLinkedList;
 
-public class MainSingleList {
+public class Main {
     public static void main(String[] args) {
         GBList list = new SingleLinkedList();
         list.add("BMW");
@@ -54,7 +54,7 @@ public class MainSingleList {
 
 
 
-      //  System.out.println(list);
+       System.out.println(list);
 
 
     }
