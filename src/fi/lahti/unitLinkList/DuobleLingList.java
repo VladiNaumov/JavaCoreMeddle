@@ -6,13 +6,14 @@ public class DuobleLingList {
     private Node next;
     private Node back;
 
-    private void addNext( Node curBack, String val, Node curNext ) {
+    private void addNext( String val, Node curNext ) {
 
         if (curNext.next == null) {
+         //   curNext.next.takas = curNext;
             curNext.next = new Node(val);
             return;
         }
-        addNext(curBack.takas, val, curNext.next);
+        addNext( val, curNext.next);
     }
 
     //добовление значения в коллекцию (вперёд)
@@ -20,35 +21,11 @@ public class DuobleLingList {
         if (next == null) {
             next = new Node(val);
         } else {
-            addNext(back,val, next);
+            addNext(val, next);
         }
 
     }
 
-
-/*
-
-    private void addBack(Node current2, String val) {
-
-        if (current2.takas == null) {
-            current2.takas = new Node(val);
-            return;
-        }
-        addBack(current2.takas, val);
-
-    }
-
-    //добовление значения в коллекцию (назад)
-    public void addTakana(String val) {
-        if (back == null) {
-            back = new Node(val);
-        } else {
-            addBack(back, val);
-        }
-
-    }
-    
- */
 
 
     @Override
@@ -76,8 +53,6 @@ public class DuobleLingList {
         }
 
          */
-
-
 
         //конструктор для передачи значения
         public Node(String val) {

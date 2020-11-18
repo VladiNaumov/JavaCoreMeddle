@@ -10,6 +10,7 @@ public class DuobleLingList {
 
         if (current.next == null) {
             current.next = new Node(val);
+            current.next.prev = current;
             return;
         }
         add(current.next, val);
@@ -36,32 +37,30 @@ public class DuobleLingList {
     // class Node  -> узел  он без LinkinList существовать не может. Она обслуживает LinkinList
     private static class Node {
         private String val; // значение
-         private Node next; // ссылка на следующий элемент
-
+        private Node next; // ссылка на следующий элемент
+        private Node prev;
 
         //конструктор для передачи значения
         public Node(String val) {
-            this(val, null); //next
+            this.val = val;
+            this.next = null;
         }
 
-        //конструктор для передачи значения и узла
-        public Node(String val, Node next) {
+
+        public Node(Node prev, String val, Node next) {
             this.val = val;
             this.next = next;
+            this.prev = prev;
         }
 
 
-        public void setNext(Node next) {
-            this.next = next;
+
+        public String toString(){
+
+            if(prev == null) return "Node{" + "val=" + val + '\'' + ", next=" + next + '}';
+            else return "Node{" + "prev=" + prev.val + '\'' + ", val=" + val + '\'' + ", next=" + next + '}';
         }
 
-        @Override
-        public String toString() {
-            return "Node{" +
-                    "val='" + val + '\'' +
-                    ", next=" + next +
-                    '}';
-        }
     }
-
 }
+

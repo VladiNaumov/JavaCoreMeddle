@@ -21,9 +21,6 @@ package fi.lahti.unit_8.SingleLinkingList;
  */
 
 
-import fi.lahti.unit_8.SingleLinkingList.GBList;
-import fi.lahti.unit_8.SingleLinkingList.SingleLinkedList;
-
 public class Main {
     public static void main(String[] args) {
         GBList list = new SingleLinkedList();
@@ -45,7 +42,7 @@ public class Main {
 
       //  System.out.println("SKOLKO ELEMENTOV  " + list.size());
 
-        System.out.println(list.getString(2));
+     //   System.out.println(list.getString(2));
 
 
      //   boolean isToyotaRemoved = list.remove("TOYOTA");

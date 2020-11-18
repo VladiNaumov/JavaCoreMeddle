@@ -96,7 +96,8 @@ public class SingleLinkedList implements GBList {
 
         //конструктор для передачи значения
         public Node(String val) {
-            this(val, null); //next
+            this.val = val;
+            this.next = null;
         }
 
         //конструктор для передачи значения и узла
