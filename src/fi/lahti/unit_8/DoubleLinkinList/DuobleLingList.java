@@ -46,15 +46,6 @@ public class DuobleLingList {
             this.next = null;
         }
 
-
-        public Node(Node prev, String val, Node next) {
-            this.val = val;
-            this.next = next;
-            this.prev = prev;
-        }
-
-
-
         public String toString(){
 
             if(prev == null) return "Node{" + "val=" + val + '\'' + ", next=" + next + '}';
